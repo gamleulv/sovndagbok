@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Path to better sleep - Sleep Diary Home</title>
+
+    <link href="style.css" media="screen" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/datedropper.min.css" rel="stylesheet">
+    <link href="css/timepicki.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet"><link rel="stylesheet" href="css/jquery-ui.css">
+
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <script src="js/jquery-ui.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+    <script>
+
+      //Added hide target modal
+      function hide(target) {
+        document.getElementById(target).style.display = 'none';
+      }
+
+      function timeNow(i) {
+        var d = new Date(),
+            h = (d.getHours()<10?'':'') + d.getHours(),
+            m = (d.getMinutes()<10?'0':'') + d.getMinutes();
+        var ampm = h >= 12 ? 'PM' : 'AM';
+        if (h>12){h= h-12;}
+        h = (h<10?'0':'') + h;
+        i.value = h + ':' + m + ' ' + ampm;;
+      }
+
+
+
+
+    </script>
+
+
+
+
+  </head>
+
+  <body>
+
+    <!--Begin Add sleep modal--->
+    <div>
+
+      <div id="popupmodal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <form class="modal-content form-horizontal" id="frmCadastre">
+            <div class="modal-header">
+              <button type="button" class="close" data-toggle="modal" data-target="#confirm-delete" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">ADD/EDIT SLEEP</h4>
+              Use this diary to store/edit your sleep data.  To begin you will need to start with entering information leading up to last night’s sleep.  
+            </div>
+            <div class="modal-body">
+              <ul class="nav nav-tabs">
+                <li class="active">
+                  <a data-toggle="tab" href="#menu1">
+                    <img src="images/nap_tab_icon.png" class="tab-icon"><br>Nap or Doze
+                  </a>
+                </li>
+                <li>
+                  <a data-toggle="tab" href="#datetime">
+                    <img src="images/going_to_bed_icon.png" class="tab-icon">
+                    <br>Going to sleep
+                  </a>
+                </li>						    
+                <li><a data-toggle="tab" href="#menu2"><img src="images/during_sleep_icon.png" class="tab-icon"><br>During Sleep</a></li>
+                <li><a data-toggle="tab" href="#menu3"><img src="images/waking_up_icon.png" class="tab-icon"><br>Waking Up</a></li>
+                <li><a data-toggle="tab" href="#menu4" id="loadRange"><img src="images/sleep_quality_icon.png" class="tab-icon"><br>Sleep Quality</a></li>
+              </ul>
+              <div class="tab-content">						  	
+                <!-- //tab-1 -->
+                <div id="menu1" class="tab-pane fade in active mt20">
+                  <div class="form-group has-default has-feedback">                                
+
+                    <label for="yesno2" class="col-sm-6 control-label">Did you nap or doze yesterday?</label>
+                    <div class="col-sm-6">                                 
+
+                      <div class="onoffswitch">
+                        <!--<input type="checkbox" name="onoffswitch" data-yesno="#ddtab2" class="onoffswitch-checkbox" id="yesno2">
+<label class="onoffswitch-label" for="yesno2">
+<span class="onoffswitch-inner"></span>
+<span class="onoffswitch-switch"></span>
+</label> -->
+
+
+                        <label class="radio-inline">
+                          <input type="radio" data-yesno="#ddtab2" id="yesno2" name="onoffswitch" checked="">Yes
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" id="yesno_no" name="onoffswitch" onclick="hide('ddtab2')" checked="">No
+                        </label>
+
+
+
+
+
+
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group collapse" id="ddtab2">
+                    <label for="dropdown" class="col-sm-6 control-label">In total minutes, how long did you nap or doze?</label>
+                    <div class="col-sm-3">
+                      <select class="form-control" id="dropdown2" data-calculate="#drop1Adddrop2" value="0">
+                        <option value="0">0 Minutes</option>
+                        <option value="5">05 Minutes</option>
+                        <option value="10">10 Minutes</option>
+                        <option value="20">20 Minutes</option>
+                        <option value="30">30 Minutes</option>
+                        <option value="40">40 Minutes</option>
+                        <option value="50">50 Minutes</option>
+                        <option value="60">1 Hour</option>
+                        <option value="70">1 Hour 10 minutes</option>
+                        <option value="80">1 Hour 20 minutes</option>
+                        <option value="90">1 Hour 30 minutes</option>
+                        <option value="100">1 Hour 40 minutes</option>
+                        <option value="110">1 Hour 50 minutes</option>
+                        <option value="120">2 Hours</option>
+                        <option value="130">2 Hours 10 minutes</option>
+                        <option value="140">2 Hours 20 minutes</option>
+                        <option value="150">2 Hours 30 minutes</option>
+                        <option value="160">2 Hours 40 minutes</option>
+                        <option value="170">2 Hours 50 minutes</option>
+                        <option value="180">3 Hours</option>
+                        <option value="190">3 Hours 10 minutes</option>
+                        <option value="200">3 Hours 20 minutes</option>
+                        <option value="210">3 Hours 30 minutes</option>
+                        <option value="220">3 Hours 40 minutes</option>
+                        <option value="230">3 Hours 50 minutes</option>
+                        <option value="240">4 Hours</option>
+                        <option value="250">4 Hours 10 minutes</option>
+                        <option value="260">4 Hours 20 minutes</option>
+                        <option value="270">4 Hours 30 minutes</option>
+                        <option value="280">4 Hours 40 minutes</option>
+                        <option value="290">4 Hours 50 minutes</option>
+                        <option value="300">5 Hours</option>
+
+                      </select>								    	
+                    </div>
+                    <div class="col-sm-3 mt5">Data Point (N)</div>
+                  </div>
+
+                  <hr>
+                  <div class="form-group">
+                    <div class="col-xs-6 text-left"></div>
+                    <div class="col-xs-6 text-right">
+
+                      <button type="button" class="btn btn-primary" data-nextprev="#datetime">Going to Sleep <span class="glyphicon glyphicon-chevron-right"></span></button>
+                    </div>								  	
+                  </div>
+                </div>
+
+                <!-- //tab-2 -->
+                <div id="datetime" class="tab-pane fade  mt20">
+                  <div class="form-group has-default has-feedback">
+                    <label for="datefield" class="col-sm-6 control-label">Date (MM/DD/YYYY)<strong class="required-indicator"></strong> :</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control date-box" id="datefield" placeholder="Date">
+                      <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                      <div class="alert-msg" id="daterequired">This field is required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group has-default has-feedback">
+                    <label for="timefield" class="col-sm-6 control-label">What time did you get into bed?</label>
+                    <div class="col-sm-3">
+                      <input type="search" name="time1" value="10:00 PM" class="form-control time-box" id="timefield" placeholder="Time">
+                      <a onclick="timeNow(timefield)" href="#">Use Current Time</a><span class="glyphicon glyphicon-time form-control-feedback"></span>
+                    </div>
+                    <div class="col-sm-3 mt5">Data Point (A)</div>
+                  </div>
+                  <div class="form-group has-default has-feedback">
+                    <label for="timefield2" class="col-sm-6 control-label">What time did you try to go to sleep?</label>
+                    <div class="col-sm-3">
+                      <input type="search" name="time2" class="form-control time-box" value="11:00 PM" id="timefield2" placeholder="Time">
+                      <a onclick="timeNow(timefield2)" href="#">Use Current Time</a><span class="glyphicon glyphicon-time form-control-feedback"></span>
+                    </div>
+                    <div class="col-sm-3 mt5">Data Point (B)</div>
+                  </div>
+                  <div class="form-group has-default has-feedback">
+                    <label for="dropdown2" class="col-sm-6 control-label">How long did it actually take you to fall asleep?</label>
+                    <div class="col-sm-3">
+                      <select class="form-control" id="dropdown" data-calculate="#drop1Adddrop" value="0">
+                        <option value="0" selected>0 Minutes</option>
+                        <option value="5">05 Minutes</option>
+                        <option value="10">10 Minutes</option>
+                        <option value="20">20 Minutes</option>
+                        <option value="30">30 Minutes</option>
+                        <option value="40">40 Minutes</option>
+                        <option value="50">50 Minutes</option>
+                        <option value="60">1 Hour</option>
+                        <option value="70">1 Hour 10 minutes</option>
+                        <option value="80">1 Hour 20 minutes</option>
+                        <option value="90">1 Hour 30 minutes</option>
+                        <option value="100">1 Hour 40 minutes</option>
+                        <option value="110">1 Hour 50 minutes</option>
+                        <option value="120">2 Hours</option>
+                        <option value="130">2 Hours 10 minutes</option>
+                        <option value="140">2 Hours 20 minutes</option>
+                        <option value="150">2 Hours 30 minutes</option>
+                        <option value="160">2 Hours 40 minutes</option>
+                        <option value="170">2 Hours 50 minutes</option>
+                        <option value="180">3 Hours</option>
+                        <option value="190">3 Hours 10 minutes</option>
+                        <option value="200">3 Hours 20 minutes</option>
+                        <option value="210">3 Hours 30 minutes</option>
+                        <option value="220">3 Hours 40 minutes</option>
+                        <option value="230">3 Hours 50 minutes</option>
+                        <option value="240">4 Hours</option>
+                        <option value="250">4 Hours 10 minutes</option>
+                        <option value="260">4 Hours 20 minutes</option>
+                        <option value="270">4 Hours 30 minutes</option>
+                        <option value="280">4 Hours 40 minutes</option>
+                        <option value="290">4 Hours 50 minutes</option>
+                        <option value="300">5 Hours</option>
+                      </select>
+
+                    </div>
+                    <div class="col-sm-3 mt5">Data Point (C)</div>
+                  </div>
+                  <hr>
+                  <div class="form-group">
+                    <div class="col-xs-4 text-left">
+                      <button type="button" class="btn btn-primary" data-nextprev="#menu1"><span class="glyphicon glyphicon-chevron-left"></span> Nap or Dozing</button>
+                    </div>
+                    <div id="duplicateWarning" class="col-xs-4 text-left mt5"></div>
+                    <div class="col-xs-4 text-right pull-right">
+                      <button type="button" class="btn btn-primary" data-nextprev="#menu2">During Sleep <span class="glyphicon glyphicon-chevron-right"></span></button>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <!-- //tab-3 -->
+                <div id="menu2" class="tab-pane fade mt20">
+
+
+                  <!-- ************Adding new hidden modal ************ -->
+
+                  <div class="form-group has-default has-feedback">                                
+
+                    <label for="yesno3" class="col-sm-6 control-label">Did you wake up during the night?</label>
+                    <div class="col-sm-6">                                 
+
+                      <div class="onoffswitch">
+
+                        <label class="radio-inline">
+                          <input type="radio" data-yesno="#ddtab3" id="yesno3" name="onoffswitch3" checked="">Yes
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" id="yesno3_no" name="onoffswitch3" onclick="hide('ddtab3')" checked="">No
+                        </label>
+
+                      </div></div></div>
+
+                  <div class="form-group collapse" id="ddtab3">
+
+                    <label for="dropdown3" class="col-sm-6 control-label">How many times did you wake up during the night?</label>
+                    <div class="col-sm-3" >
+                      <select class="form-control" id="dropdown3" value="0">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-3 mt5">Data Point (D)</div>
+
+
+                    <label for="dropdown4" class="col-sm-6 control-label">In minutes, how long did each awakening last, on average?</label>
+                    <div class="col-sm-3">
+                      <select class="form-control" id="dropdown4" value="0">
+                        <option value="0">0 Minutes</option>
+                        <option value="5">05 Minutes</option>
+                        <option value="10">10 Minutes</option>
+                        <option value="20">20 Minutes</option>
+                        <option value="30">30 Minutes</option>
+                        <option value="40">40 Minutes</option>
+                        <option value="50">50 Minutes</option>
+                        <option value="60">1 Hour</option>
+                        <option value="70">1 Hour 10 minutes</option>
+                        <option value="80">1 Hour 20 minutes</option>
+                        <option value="90">1 Hour 30 minutes</option>
+                        <option value="100">1 Hour 40 minutes</option>
+                        <option value="110">1 Hour 50 minutes</option>
+                        <option value="120">2 Hours</option>
+                        <option value="130">2 Hours 10 minutes</option>
+                        <option value="140">2 Hours 20 minutes</option>
+                        <option value="150">2 Hours 30 minutes</option>
+                        <option value="160">2 Hours 40 minutes</option>
+                        <option value="170">2 Hours 50 minutes</option>
+                        <option value="180">3 Hours</option>
+                        <option value="190">3 Hours 10 minutes</option>
+                        <option value="200">3 Hours 20 minutes</option>
+                        <option value="210">3 Hours 30 minutes</option>
+                        <option value="220">3 Hours 40 minutes</option>
+                        <option value="230">3 Hours 50 minutes</option>
+                        <option value="240">4 Hours</option>
+                        <option value="250">4 Hours 10 minutes</option>
+                        <option value="260">4 Hours 20 minutes</option>
+                        <option value="270">4 Hours 30 minutes</option>
+                        <option value="280">4 Hours 40 minutes</option>
+                        <option value="290">4 Hours 50 minutes</option>
+                        <option value="300">5 Hours</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-3 mt5">Data Point (E)</div>
+
+
+                  </div>
+                  <!-- ************END Adding new hidden modal ************ -->
+
+
+
+
+                  <hr>
+                  <div class="form-group">
+                    <div class="col-xs-6 text-left">
+                      <button type="button" class="btn btn-primary" data-nextprev="#datetime">Going to Sleep <span class="glyphicon glyphicon-chevron-left"></span></button>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                      <button type="button" class="btn btn-primary" data-nextprev="#menu3">Waking Up <span class="glyphicon glyphicon-chevron-right"></span></button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- //tab-4 -->
+                <div id="menu3" class="tab-pane fade mt20">
+                  <div class="form-group has-default has-feedback">
+                    <label for="timefield3" class="col-sm-6 control-label">What time was your final awakening?</label>
+                    <div class="col-sm-3">
+                      <input type="search" value="06:00 AM" class="form-control time-box" id="timefield3" placeholder="Time">
+                      <a onclick="timeNow(timefield3)" href="#">Use Current Time</a><span class="glyphicon glyphicon-time form-control-feedback"></span>
+                    </div>
+                    <div class="col-sm-3 mt5">Data Point (F)</div>
+                  </div>
+                  <div class="form-group has-default has-feedback">
+                    <label for="timefield4" class="col-sm-6 control-label">When did you get out of bed to start your day?</label>
+                    <div class="col-sm-3">
+                      <input type="search" value="07:00 AM" class="form-control time-box" id="timefield4" placeholder="Time">
+                      <a onclick="timeNow(timefield4)" href="#">Use Current Time</a><span class="glyphicon glyphicon-time form-control-feedback"></span>
+                    </div>
+                    <div class="col-sm-3 mt5">Data Point (G)</div>
+                  </div>
+                  <div class="form-group has-default has-feedback">
+                    <label for="yesno4" class="col-sm-6 control-label">Did you wakeup earlier than desired?</label>
+                    <div class="col-sm-5">
+                      <div class="onoffswitch">
+
+                        <label class="radio-inline">
+                          <input type="radio" data-yesno="#ddtab4" id="yesno4" name="onoffswitch4" checked="">Yes
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" id="yesno4_no" name="onoffswitch4" onclick="hide('ddtab4')" checked="">No
+                        </label>
+
+                        <!--
+<input type="checkbox" name="onoffswitch" data-yesno="#ddtab4" class="onoffswitch-checkbox" id="yesno4">
+<label class="onoffswitch-label" for="yesno4">
+<span class="onoffswitch-inner"></span>
+<span class="onoffswitch-switch"></span>
+</label> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group collapse" id="ddtab4">
+                    <label for="dropdown5" class="col-sm-6 control-label">How much earlier?</label>
+                    <div class="col-sm-3">
+                      <select class="form-control" id="dropdown5">
+                        <option value="5" selected>05 Minutes</option>
+                        <option value="10">10 Minutes</option>
+                        <option value="20">20 Minutes</option>
+                        <option value="30">30 Minutes</option>
+                        <option value="40">40 Minutes</option>
+                        <option value="50">50 Minutes</option>
+                        <option value="60">1 Hour</option>
+                        <option value="70">1 Hour 10 minutes</option>
+                        <option value="80">1 Hour 20 minutes</option>
+                        <option value="90">1 Hour 30 minutes</option>
+                        <option value="100">1 Hour 40 minutes</option>
+                        <option value="110">1 Hour 50 minutes</option>
+                        <option value="120">2 Hours</option>
+                        <option value="130">2 Hours 10 minutes</option>
+                        <option value="140">2 Hours 20 minutes</option>
+                        <option value="150">2 Hours 30 minutes</option>
+                        <option value="160">2 Hours 40 minutes</option>
+                        <option value="170">2 Hours 50 minutes</option>
+                        <option value="180">3 Hours</option>
+                        <option value="190">3 Hours 10 minutes</option>
+                        <option value="200">3 Hours 20 minutes</option>
+                        <option value="210">3 Hours 30 minutes</option>
+                        <option value="220">3 Hours 40 minutes</option>
+                        <option value="230">3 Hours 50 minutes</option>
+                        <option value="240">4 Hours</option>
+                        <option value="250">4 Hours 10 minutes</option>
+                        <option value="260">4 Hours 20 minutes</option>
+                        <option value="270">4 Hours 30 minutes</option>
+                        <option value="280">4 Hours 40 minutes</option>
+                        <option value="290">4 Hours 50 minutes</option>
+                        <option value="300">5 Hours</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <hr>
+                  <div class="form-group">
+                    <div class="col-xs-6 text-left">
+                      <button type="button" class="btn btn-primary" data-nextprev="#menu2"><span class="glyphicon glyphicon-chevron-left"></span> During Sleep</button>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                      <button type="button" class="btn btn-primary" data-nextprev="#menu4">Sleep Quality <span class="glyphicon glyphicon-chevron-right"></span></button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- //tab-5 -->
+                <div id="menu4" class="tab-pane fade">
+                  <div class="form-group">
+                    <input type="number" name="" class="opacity0" value="5" id="rangeSlide">
+                    <div class="col-sm-10 col-sm-offset-1">
+                      <h3>How would you rate your sleep quality on a scale from 1 to 10 with 10 being the best possible night of sleep?</h3>
+
+                      <!-- //start slider -->
+                      <div class="range-holder">
+                        <div id="pr-slider" class="dragdealer">
+
+                          <div class="stripe">
+                            <div class="handle">
+                              <div class="infobox">
+                                <div class="titlebar">
+                                  <span id="plan-holder"></span> <span id="device-holder"></span>
+                                </div>
+                                <div class="innerbox">			            		
+                                  <div class="info-price"></div>
+                                </div>
+                              </div>	
+                              <div class="square">
+                                <span class="value"></span>
+                                <span class="menu-line"></span>
+                                <span class="menu-line"></span>
+                                <span class="menu-line"></span>
+                              </div>	
+                            </div>
+                          </div>
+                        </div>
+                        <div class="num-steps">
+                          <span class="stepz stepp0"></span>
+                          <span class="stepz stepp1"></ br><img src="images/sleep0.png" width="30px"></span>
+                        <span class="stepz stepp2"></span>
+                        <span class="stepz stepp3"></ br><img src="images/sleep3.png" width="30px"></span>
+                      <span class="stepz stepp4"></span>
+                      <span class="stepz stepp5"></ br><img src="images/sleep5.png" width="30px"></span>
+                    <span class="stepz stepp6"></span>
+                    <span class="stepz stepp7"></ br><img src="images/sleep7.png" width="30px"></span>
+                  <span class="stepz stepp8"></span>
+                  <span class="stepz stepp9"></ br><img src="images/sleep10.png" width="30px"> </span>
+                <span class="stepz stepp10"></span>
+
+              </div>
+            </div>
+            <!-- //end slider -->
+            </div>
+        </div>
+
+        <hr>
+        <div class="form-group">
+          <div class="col-xs-6 text-left">
+            <button type="button" class="btn btn-primary" data-nextprev="#menu3"><span class="glyphicon glyphicon-chevron-left"></span> Waking Up</button>
+          </div>
+          <div class="col-xs-6 text-right"></div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    
+        <input type="text" name="" id="datapointH">
+       
+        <input type="text" name="" id="datapointI">
+       
+        <input type="text" name="" id="datapointJ">
+       
+        <input type="text" name="" id="datapointK">
+      
+        <input type="text" name="" id="datapointL">
+  
+        <input type="text" name="" id="datapointM">
+       
+        <input type="text" name="" id="datapointZ">
+      
+
+    <div class="form-group">
+      <div class="col-sm-offset-4 col-sm-6">
+        <button type="button" class="btn btn-success active" id="btnSave">&nbsp;&nbsp;Save&nbsp;&nbsp;<span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;</button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#confirm-delete">Close</button>
+      </div>
+    </div>
+    </div>
+  </form>
+</div>
+
+</div>     
+
+
+
+<!-- Confirmation delete modal -->
+
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Confirm Exit</h4>
+      </div>
+
+      <div class="modal-body">
+        <p>You are about the exit without saving your sleep data.</p>
+        <p>Do you want to proceed?</p>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
+        <a class="btn btn-danger btn-ok" href="sleepinfo.html">Proceed without saving</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End delete mdal -->
+
+
+<!-- Duplicate date modal -->
+
+
+<div class="modal fade" id="confirm-edit-duplicate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Data already exists</h4>
+      </div>
+
+      <div class="modal-body">
+        <p>You already have data entered for this date.</p>
+        <p>Would you like to update it?</p>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" >Cancel & Change Date</button>
+        <a class="btn btn-danger btn-ok" href="sleepinfo.html">Edit current data</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End Duplicate date modal -->
+
+
+
+<!--End Add sleep modal --->
+
+
+
+<div class="body-wrap">
+  <div class="content">
+    <!--container-->
+    <div class="container">
+
+
+
+      <div class="row hidden-xs">
+        <!-- Skip to Main Content -->
+        <div id="skip-link" class="col-xs-6">
+          <a class="element-invisible element-focusable" href="#webapp_home" tabindex="1">Skip to main content</a><span class="sr-only">Skip to main content></span>
+        </div>  
+
+        <!-- ASSISTIVE TECHNOLOGY -->
+        <div id="AT" class="hidden-xs col-sm-6 pull-right">
+          <span id="atSpan" tabindex="2" >
+            <input accesskey="a" type="checkbox" id="ATbox" name="ATbox" value="y" />
+            <label for="ATbox">ASSISTIVE TECHNOLOGY</label>
+          </span>
+        </div>
+      </div>
+
+
+      <!-- row -->
+      <div class="row">
+        <div class="col-sm-12">
+          <!-- Website Menu -->
+          <ul class="menu boxed clearfix">
+            <li class="active"><a href="index.html"><i class="menu-icon menu-icon-1" ></i>Home</a></li>
+            <li>
+              <a href="#" id="addentry" data-target="#popupmodal" data-toggle="modal"><i class="menu-icon menu-icon-9"></i>Add/Edit Sleep</a>
+
+            </li>
+            <li>
+              <a href="sleepinfo.html"><i class="menu-icon menu-icon-2"></i>My Sleep</a>
+
+            </li>
+            <li>
+              <a href="tools.html"><i class="menu-icon menu-icon-5" ></i>Tools</a>
+
+            </li>
+
+            <li><a href="#" class="downlaodcsv" data-export="export"><i class="menu-icon menu-icon-6"></i>Share Sleep Data</a></li>
+
+          </ul>
+          <!--/ Website Menu -->
+        </div>
+      </div>
+      <!--/ row -->
+
+      <!---------Webapp tools begin----------->
+
+
+
+
+      <!--------Begin webapp home-------->
+      <div class="sleep_app_boxes" id="webapp_home">
+        <!-- row -->
+        <div class="row">
+          <div class="col-sm-12">
+            <!-- JumboTron -->
+            <div class="jumbotron boxed">
+              <div class="jumbotron-full" style="background-color: #f7fafc;">
+                <div class="jumbotron-header">
+                  <div class="jumbotron-title">
+                    <h1 class="h1">Path to better sleep<br /><strong>Sleep Diary</strong><i></i></h1>
+                    <div class="hometext">
+                      <span>In order to improve your sleep, it is important to first understand it. This sleep diary was designed to help Veterans track and review their sleep patterns. However, for it to be most beneficial to you, accurate information must be logged daily.
+
+                        <br/> <br/> 
+                      </span>
+                    </div>
+                    <button type="button" class="btn btn-primary" "btn-lg" id="addentry" data-target="#popupmodal" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span>ADD/EDIT SLEEP</button>
+                  </div>
+                  <div class="jumbotron-image"><img src="./images/Fotolia_51859847_day.png" alt="Early morning bedroom scene with sunlight coming through window" /></div>
+                </div>
+                <!-- post item -->
+                <div class="post-item clearfix">
+                  <div class="post-meta-top">
+                    <div class="post-image"><img src="./images/FotoliaComp_95442511.jpg" alt="Padlock surrounded by data" /></div>
+                  </div>
+                  <div class="post-content">
+                    <h2 class="post-title">Sleep Diary use of local storage</h2>
+                    <div class="post-desc">
+                      <p>The Sleep Diary uses a method called “local storage” to store and retrieve data. All data entered in this manner is securely stored within the user’s browser and only the user will have access to such data. Unfortunately, this may not be a viable option for public or work-related systems. For these instances please use the "Download Sleep Diary" link below to save it to your personal computer.  Please note that deleting your browser history will remove all sleep data so it is best to periodically save your data by clicking the "Share Sleep Data" link on any page.                 
+
+                      </p>
+                    </div>
+                    <span class="post-more"><a href="diary.zip">Download Sleep Diary<i></i></a></span>
+                  </div>
+                </div>
+                <!--/ post item -->
+              </div>
+
+            </div>
+            <!--/ JumboTron -->
+          </div>
+        </div>
+        <!--/ row -->
+
+
+      </div>
+
+      <!--/ row -->
+    </div>
+    <!--------End webapp home-------->
+  </div>
+  <!--/ container -->
+
+
+
+  <div class="notify">
+
+  </div>
+
+
+
+  <!--/ row -->
+
+
+</div>
+</div>
+<!--/ row -->
+
+<!-- //End sleep table -->
+
+
+
+
+<script src="js/jquery.min.js"></script>
+
+
+<script src="js/moment.js"></script>
+
+<script src="js/tableCsv.js"></script>
+<script src="js/bootstrap.min.js"></script><script src="js/jquery-ui.js"></script>
+
+
+<!-- //calculation -->
+<script type="text/javascript" src="js/calculation.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    //find current date
+    var currentdate = new Date();
+    var monthz = currentdate.getMonth()+1;
+    var dayz = currentdate.getDate();
+    var output = ((''+monthz).length<2 ? '0' : '') + monthz + '/' +
+        ((''+dayz).length<2 ? '0' : '') + dayz + '/' + currentdate.getFullYear();
+    $('#datefield').val(output);
+
+    $(document).on('blur click', '#datefield', function(){
+      var datearray = [];
+      $('tbody tr td:first-child').each(function(data, e){
+        datearray.push($(e).text());
+
+      });
+      var dateval = $('#datefield').val();
+      if ($.inArray(dateval, datearray) > -1) {
+        $('.alert-msg').html('Date is already exist in database').show();
+        $('#btnSave').attr('disabled',true);
+      }
+      else{
+        $('.alert-msg').css('display','none');
+        $('#btnSave').removeAttr('disabled');
+      }
+    });
+
+    $('.date-box').datepicker();
+    $('#timefield').timepicki({start_time: ["10", "00", "PM"]});
+    $('#timefield2').timepicki({start_time: ["11", "00", "PM"]});
+    $('#timefield3').timepicki({start_time: ["6", "00", "AM"]});
+    $('#timefield4').timepicki({start_time: ["7", "00", "AM"]});
+    $('.date-box, #dropdown').focus(function() {
+      $('#timefield').blur();
+      $('#timefield2').blur();
+    });
+    $('#timefield').focus(function() {
+      $('#timefield2').blur();
+    });
+    $('#timefield2').focus(function() {
+      $('#timefield').blur();
+    });
+  });
+</script>
+
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    // set values of donwloaded date
+    $('#currentDate').val(localStorage.getItem("downloadHistory"));
+
+    //slide change then values should be change.
+    $('[data-rangeslide]').on('change mousemove', function(){
+      var getdataid = $(this).data('rangeslide');
+      var getvalue = $(this).val();
+      $(getdataid).html(getvalue);
+    });
+
+    //yes-no check when page load
+    $('[data-yesno]').each(function(){
+      var getid = $(this).data('yesno');
+      var check = $(this).prop('checked');
+      if (check==true) {$(getid).show();}
+      else{$(getid).hide();}
+    })
+    //yes-no check when choosen
+    $('[data-yesno]').on('change', function(){
+      var getid = $(this).data('yesno');
+      var check = $(this).prop('checked');
+      if (check==true) {$(getid).show();}
+      else{$(getid).hide();}
+    });
+
+    // dropdown and dropdown-2 calculation
+    $('[data-calculate]').on('change', function(){
+      var getid = $(this).data('calculate');
+      var selfVal = $(this).val();
+      var clc = [];
+      $('[data-calculate="'+getid+'"]').each(function(){
+        clc.push($(this).val());
+      });
+      var checkVal1 = parseFloat(clc[0]);
+      var checkVal2 = parseFloat(clc[1]);
+      if (isNaN(checkVal1)) {
+        if (isNaN(checkVal2)) {
+          $(getid).val('');
+        }
+        else{
+          $(getid).val(checkVal2);
+        }
+      }
+      else{
+        if (isNaN(checkVal2)) {
+          $(getid).val(checkVal1);
+        }
+        else{
+          var result = parseFloat(clc[0]) + parseFloat(clc[1]);
+          $(getid).val(result);
+        }
+      }
+    });
+  });
+</script>
+<!--<script type="text/javascript">
+$(document).ready(function(){
+$('[data-nextprev]').on('click', function(){
+var getval = $(this).data('nextprev');
+if (getval = 'sleepinfo.html') {
+console.log('nextprev is sleepinfo');
+window.location.href = './sleepinfo.html';
+$('#popupmodal').modal('hide'); 
+}
+else {
+$('[href="'+getval+'"]').trigger('click');
+}
+});
+});
+</script-->
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('[data-nextprev]').on('click', function(){
+      var getval = $(this).data('nextprev');
+      $('[href="'+getval+'"]').trigger('click');
+    });
+  });
+</script>
+
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    jQuery.fn.tableToCSV = function() {
+      var clean_text = function(text){
+        text = text.replace(/"/g, '\\"').replace(/'/g, "\\'");
+        return '"'+text+'"';
+      };
+
+      $(this).each(function(){
+        var table = $(this);
+        var caption = $(this).find('caption').text();
+        var title = [];
+        var rows = [];
+
+        $(this).find('tr').each(function(){
+          var data = [];
+          $(this).find('th').each(function(){
+            var text = clean_text($(this).text());
+            title.push(text);
+          });
+          $(this).find('td').each(function(){
+            var text = clean_text($(this).text());
+            data.push(text);
+          });
+          data = data.join(",");
+          rows.push(data);
+        });
+        title = title.join(",");
+        rows = rows.join("\n");
+
+        var csv = title + rows;
+        var uri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+        var download_link = document.createElement('a');
+        download_link.href = uri;
+        var ts = new Date().getTime();
+        if(caption==""){
+          download_link.download = ts+".csv";
+        } else {
+          download_link.download = caption+"-"+ts+".csv";
+        }
+        document.body.appendChild(download_link);
+        download_link.click();
+        document.body.removeChild(download_link);
+      });
+    };
+
+    $(document).on("click",".downlaodcsv", function (event) {
+      $('body').append('<div class="hidetablez"><table class="likedownload" id="downList" border="1"></table></div><div class="loading-spinner"></div>');
+      var tbClients = localStorage.getItem("tbClients");//Retrieve the stored data
+      tbClients = JSON.parse(tbClients); //Converts string to object
+      if(tbClients == null){ //If there is no data, initialize an empty array
+        tbClients = [];
+      }
+
+      $("#downList").html(
+        "<thead>"+
+        "<tr>"+
+        "<th>Date</th>"+
+        "<th>Go to Bed</th>"+
+        "<th>Got to Sleep</th>"+
+        "<th>Min to fall asleep</th>"+
+        "<th>How long did you nap?</th>"+
+        "<th>How many times did you wake up?</th>"+
+        "<th>How long did these awakenings last?</th>"+
+        "<th>Final awakening</th>"+
+        "<th>Got out of bed</th>"+
+        "<th>How much earlier did you wake up than expected?</th>"+
+        "<th>Sleep Quality</th>"+
+        "<th class='hideCOL'>Total time in bed</th>"+
+        "<th class='hideCOL'>Pre-sleep time in bed</th>"+
+        "<th class='hideCOL'>Snooze time</th>"+
+        "<th class='hideCOL'>Total wake time</th>"+
+        "<th class='hideCOL'>Total sleep time</th>"+
+        "<th class='hideCOL'>Sleep Efficiency</th>"+
+        "<th class='hideCOL'>Total sleep with naps</th>"+
+        "</tr>"+
+        "</thead>"+
+        "<tbody>"+
+        "</tbody>");
+      for(var i in tbClients){
+        var cli = JSON.parse(tbClients[i]);
+        $("#downList tbody").append("<tr>"+
+                                    "<td data-urlset='#"+i+"' data-label='Date'>"+cli.Date+"</td>" + 
+                                    "<td data-urlset='#"+i+"' data-label='Time'>"+cli.Time+"</td>" + 
+                                    "<td data-urlset='#"+i+"' data-label='Time2'>"+cli.Time2+"</td>" + 
+                                    "<td data-urlset='#"+i+"' data-label='Dropdown'>"+cli.Dropdown+"</td>" + 
+                                    "<td data-urlset='#"+i+"' data-label='Dropdown2'>"+cli.Dropdown2+"</td>" + 
+                                    "<td data-urlset='#"+i+"' data-label='Dropdown3'>"+cli.Dropdown3+"</td>" + 
+                                    "<td data-urlset='#"+i+"' data-label='Dropdown4'>"+cli.Dropdown4+"</td>" + 
+                                    "<td data-urlset='#"+i+"' data-label='Time3'>"+cli.Time3+"</td>" + 
+                                    "<td data-urlset='#"+i+"' data-label='Time4'>"+cli.Time4+"</td>" + 
+                                    "<td data-urlset='#"+i+"' data-label='Dropdown5'>"+cli.Dropdown5+"</td>" +
+                                    "<td data-urlset='#"+i+"' data-label='Sleep Quality'>"+cli.RangeSlide+"</td>" +
+                                    "<td data-urlset='#"+i+"' data-label='datapointH' class='hideCOL'>"+cli.datapointH+"</td>" +
+                                    "<td data-urlset='#"+i+"' data-label='datapointI' class='hideCOL'>"+cli.datapointI+"</td>" +
+                                    "<td data-urlset='#"+i+"' data-label='datapointJ' class='hideCOL'>"+cli.datapointJ+"</td>" +
+                                    "<td data-urlset='#"+i+"' data-label='datapointK' class='hideCOL'>"+cli.datapointK+"</td>" +
+                                    "<td data-urlset='#"+i+"' data-label='datapointL' class='hideCOL'>"+cli.datapointL+"</td>" +
+                                    "<td data-urlset='#"+i+"' data-label='datapointM' class='hideCOL'>"+cli.datapointM+"</td>" +
+                                    "<td data-urlset='#"+i+"' data-label='datapointZ' class='hideCOL'>"+cli.datapointZ+"</td>" +
+                                    "</tr>");
+      }
+      setTimeout(function(){
+        $("#downList").tableToCSV();
+        $(".loading-spinner").fadeOut('slow');
+      },1000);
+    });
+  });
+</script>
+
+<script>
+  $( document ).ready(function() {
+    $("[data-toggle='tooltip']").tooltip();
+  });
+</script>
+
+
+<script type="text/javascript" src="js/slide-range.js"></script>
+<script type="text/javascript" src="js/tab5.js"></script>
+
+<script type="text/javascript" src="js/functions.js"></script><script type="text/javascript" src="js/cookies.js"></script>
+<script type="text/javascript" src="js/datedropper.min.js"></script>
+<script type="text/javascript" src="js/timepicki.js"></script>
+
+</body>
+</html>
